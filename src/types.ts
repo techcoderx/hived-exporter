@@ -48,37 +48,6 @@ export interface BlockStatNotif extends Notification {
   }
 }
 
-export interface MetricsType {
-  [key: string]: number | { [key: string]: number }
-}
-
-export interface Metrics extends MetricsType {
-  // block info
-  num: number
-  txs: number
-  size: number
-  offset: number
-
-  // before
-  txs_processed_before_block: number
-  txs_accepted_before_block: number
-  txs_with_failed_auth_before_block: number
-  txs_with_no_rc_before_block: number
-
-  // after
-  txs_expired_after_block: number
-  txs_failed_after_block: number
-  txs_reapplied_after_block: number
-  txs_postponed_after_block: number
-
-  // exec
-  exec_offset: number
-  exec_wait_time: number
-  exec_work_time: number
-  exec_cleanup_time: number
-  exec_total_time: number
-}
-
 export interface NotificationReq extends Request {
   body: HivedStatusNotif | BlockStatNotif
 }

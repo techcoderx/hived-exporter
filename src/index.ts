@@ -11,6 +11,7 @@ app.use(cors())
 
 const register = new client.Registry()
 
+// Block stat metrics
 const BlockStatNum = new client.Gauge({ name: 'block_stat_num', help: 'Hive block height' })
 const BlockStatTxs = new client.Gauge({ name: 'block_stat_txs', help: 'Transaction count in block' })
 const BlockStatSize = new client.Gauge({ name: 'block_stat_size', help: 'Block size' })
@@ -73,7 +74,7 @@ app.put('/', (req: NotificationReq, res: Response) => {
       BlockStatAfterTxFailed.set(data.value.block_stats.after.fail)
       BlockStatAfterTxReapplied.set(data.value.block_stats.after.appl)
       BlockStatAfterTxPostponed.set(data.value.block_stats.after.post)
-      BlockStatExecOffset.set(data.value.block_stats.exec.offset)
+      BlockStatExecOffset.set(Math.abs(data.value.block_stats.exec.offset))
       BlockStatExecWaitTime.set(data.value.block_stats.exec.pre)
       BlockStatExecCleanupTime.set(data.value.block_stats.exec.post)
       BlockStatExecTotalTime.set(data.value.block_stats.exec.all)
