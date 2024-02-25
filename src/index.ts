@@ -26,10 +26,10 @@ const BlockStatBeforeTxNoRc = new client.Gauge({
   name: 'block_stat_before_txs_with_no_rc',
   help: 'Transactions rejected due to no RC during pre-validation'
 })
-const BlockStatAfterTxExpired = new client.Gauge({ name: 'block_stat_before_txs_expired', help: 'Transactions expired during post-validation' })
-const BlockStatAfterTxFailed = new client.Gauge({ name: 'block_stat_before_txs_failed', help: 'Transactions failed during post-validation' })
-const BlockStatAfterTxReapplied = new client.Gauge({ name: 'block_stat_before_txs_reapplied', help: 'Transactions reapplied during post-validation' })
-const BlockStatAfterTxPostponed = new client.Gauge({ name: 'block_stat_before_txs_postponed', help: 'Transactions postponed during post-validation' })
+const BlockStatAfterTxExpired = new client.Gauge({ name: 'block_stat_after_txs_expired', help: 'Transactions expired during post-validation' })
+const BlockStatAfterTxFailed = new client.Gauge({ name: 'block_stat_after_txs_failed', help: 'Transactions failed during post-validation' })
+const BlockStatAfterTxReapplied = new client.Gauge({ name: 'block_stat_after_txs_reapplied', help: 'Transactions reapplied during post-validation' })
+const BlockStatAfterTxPostponed = new client.Gauge({ name: 'block_stat_after_txs_postponed', help: 'Transactions postponed during post-validation' })
 const BlockStatExecOffset = new client.Gauge({ name: 'block_stat_exec_offset', help: 'Block execution offset' })
 const BlockStatExecWaitTime = new client.Gauge({ name: 'block_stat_exec_wait_time', help: 'Block exection waiting time' })
 const BlockStatExecCleanupTime = new client.Gauge({ name: 'block_stat_exec_cleanup_time', help: 'Block exection cleanup time' })
