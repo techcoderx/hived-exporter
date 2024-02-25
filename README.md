@@ -32,3 +32,17 @@ block-stats-report-output = NOTIFY
 ```bash
 pnpm start
 ```
+
+## Docker
+
+### Build Image
+
+```bash
+docker build -t hived-exporter .
+```
+
+### Run container
+
+```bash
+docker run -d --rm -itp 8088:8088 --name hived-exporter hived-exporter
+```
