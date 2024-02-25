@@ -32,6 +32,7 @@ const BlockStatAfterTxReapplied = new client.Gauge({ name: 'block_stat_after_txs
 const BlockStatAfterTxPostponed = new client.Gauge({ name: 'block_stat_after_txs_postponed', help: 'Transactions postponed during post-validation' })
 const BlockStatExecOffset = new client.Gauge({ name: 'block_stat_exec_offset', help: 'Block execution offset' })
 const BlockStatExecWaitTime = new client.Gauge({ name: 'block_stat_exec_wait_time', help: 'Block exection waiting time' })
+const BlockStatExecWorkTime = new client.Gauge({ name: 'block_stat_exec_work_time', help: 'Block exection working time' })
 const BlockStatExecCleanupTime = new client.Gauge({ name: 'block_stat_exec_cleanup_time', help: 'Block exection cleanup time' })
 const BlockStatExecTotalTime = new client.Gauge({ name: 'block_stat_exec_total_time', help: 'Block exection total time' })
 
@@ -49,6 +50,7 @@ register.registerMetric(BlockStatAfterTxReapplied)
 register.registerMetric(BlockStatAfterTxPostponed)
 register.registerMetric(BlockStatExecOffset)
 register.registerMetric(BlockStatExecWaitTime)
+register.registerMetric(BlockStatExecWorkTime)
 register.registerMetric(BlockStatExecCleanupTime)
 register.registerMetric(BlockStatExecTotalTime)
 
@@ -76,6 +78,7 @@ app.put('/', (req: NotificationReq, res: Response) => {
       BlockStatAfterTxPostponed.set(data.value.block_stats.after.post)
       BlockStatExecOffset.set(data.value.block_stats.exec.offset)
       BlockStatExecWaitTime.set(data.value.block_stats.exec.pre)
+      BlockStatExecWorkTime.set(data.value.block_stats.exec.work)
       BlockStatExecCleanupTime.set(data.value.block_stats.exec.post)
       BlockStatExecTotalTime.set(data.value.block_stats.exec.all)
       logger.info(
