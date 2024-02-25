@@ -48,6 +48,28 @@ export interface BlockStatNotif extends Notification {
   }
 }
 
+// for reference only, probably not useful for non-debugging purposes
+export interface BenchmarkNotif extends Notification {
+  name: 'hived_benchmark'
+  value: {
+    multiindex_stats: {
+      block_number: number
+      real_ms: number
+      cpu_ms: number
+      current_mem: number
+      peak_mem: number
+      index_memory_details_cntr: {
+        index_name: string
+        index_size: number
+        item_sizeof: number
+        item_additional_allocation: number
+        additional_container_allocation: number
+        total_index_mem_usage: number
+      }[]
+    }
+  }
+}
+
 export interface NotificationReq extends Request {
   body: HivedStatusNotif | BlockStatNotif
 }
