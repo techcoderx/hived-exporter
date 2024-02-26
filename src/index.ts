@@ -2,15 +2,7 @@ import express, { Request, Response } from 'express'
 import cors from 'cors'
 import client from 'prom-client'
 import logger from './logger.js'
-import {
-  AccountRC,
-  AccountRCRpcResponse,
-  AccountRpcResponse,
-  CoingeckoUSDPriceResponse,
-  DgpRPCResponse,
-  NotificationReq,
-  PriceFeedRpcResponse
-} from './types.js'
+import { AccountRC, AccountRCRpcResponse, AccountRpcResponse, CoingeckoUSDPriceResponse, DgpRPCResponse, NotificationReq } from './types.js'
 import { computeCurrentVests, computeRCMana, computeVPMana, thousandSeperator } from './helpers.js'
 import config, { DHF_ACC } from './config.js'
 

@@ -138,24 +138,6 @@ export interface DgpRPCResponse extends RPCResponse {
   }
 }
 
-export interface PriceFeedRpcResponse extends RPCResponse {
-  result: {
-    id: 0
-    current_median_history: {
-      base: {
-        amount: string
-        precision: 3
-        nai: '@@000000013'
-      }
-      quote: {
-        amount: string
-        precision: 3
-        nai: '@@000000021'
-      }
-    }
-  }
-}
-
 export interface AccountRpcResponse extends RPCResponse {
   result: Account[]
 }
