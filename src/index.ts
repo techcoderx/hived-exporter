@@ -127,8 +127,7 @@ if (config.apiNode) {
   const AccountHBDBalance = new client.Gauge({ name: 'account_hbd_balance', help: 'Liquid HBD balance', labelNames: ['name'] })
   const AccountSavingsBalance = new client.Gauge({ name: 'account_savings_balance', help: 'Savings HIVE balance', labelNames: ['name'] })
   const AccountHBDSavingsBalance = new client.Gauge({ name: 'account_savings_hbd_balance', help: 'Savings HBD balance', labelNames: ['name'] })
-  const AccountVests = new client.Gauge({ name: 'account_vesting_shares', help: 'Vesting shares', labelNames: ['name'] })
-  const AccountVestsCurrent = new client.Gauge({ name: 'account_vests_current', help: 'Current vesting shares', labelNames: ['name'] })
+  const AccountVests = new client.Gauge({ name: 'account_vesting_shares', help: 'Vesting shares', labelNames: ['name', 'type'] })
   const AccountCurationRewards = new client.Gauge({ name: 'account_curation_rewards', help: 'Total curation rewards', labelNames: ['name'] })
   const AccountPostingRewards = new client.Gauge({ name: 'account_posting_rewards', help: 'Total author rewards', labelNames: ['name'] })
   const AccountMana = new client.Gauge({ name: 'account_mana', help: 'Account voting and RC mama percent', labelNames: ['name', 'type'] })
@@ -146,7 +145,6 @@ if (config.apiNode) {
   register.registerMetric(AccountSavingsBalance)
   register.registerMetric(AccountHBDSavingsBalance)
   register.registerMetric(AccountVests)
-  register.registerMetric(AccountVestsCurrent)
   register.registerMetric(AccountCurationRewards)
   register.registerMetric(AccountPostingRewards)
   register.registerMetric(AccountMana)
@@ -183,7 +181,9 @@ if (config.apiNode) {
       })
       if (resp && resp.status === 200) {
         let result: [DgpRPCResponse, AccountRpcResponse, AccountRCRpcResponse] = await resp.json()
+        let hivePerVest: number = 0
         if (!result[0].error) {
+          hivePerVest = (1000 * parseInt(result[0].result.total_vesting_fund_hive.amount)) / parseInt(result[0].result.total_vesting_shares.amount)
           DgpVirtualSupply.set(parseInt(result[0].result.virtual_supply.amount))
           DgpCurrentSupply.set(parseInt(result[0].result.current_supply.amount))
           DgpCurrentHBDSupply.set(parseInt(result[0].result.current_hbd_supply.amount))
@@ -203,8 +203,12 @@ if (config.apiNode) {
             if (acc.name !== DHF_ACC) {
               AccountSavingsBalance.set({ name: acc.name }, parseFloat(acc.savings_balance))
               AccountHBDSavingsBalance.set({ name: acc.name }, parseFloat(acc.savings_hbd_balance))
-              AccountVests.set({ name: acc.name }, parseFloat(acc.vesting_shares))
-              AccountVestsCurrent.set({ name: acc.name }, currentVests)
+              AccountVests.labels(acc.name, 'staked_vests').set(parseFloat(acc.vesting_shares))
+              AccountVests.labels(acc.name, 'current_vests').set(currentVests)
+              if (hivePerVest > 0) {
+                AccountVests.labels(acc.name, 'staked_hive').set(parseFloat(acc.vesting_shares) * hivePerVest)
+                AccountVests.labels(acc.name, 'current_hive').set(currentVests * hivePerVest)
+              }
               AccountCurationRewards.set({ name: acc.name }, acc.curation_rewards)
               AccountPostingRewards.set({ name: acc.name }, acc.posting_rewards)
               AccountMana.labels(acc.name, 'upvote').set(upvoteVP.percentage)
