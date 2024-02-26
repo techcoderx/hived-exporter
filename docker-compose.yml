@@ -1,0 +1,36 @@
+version: '3'
+services:
+  hived-exporter:
+    image: hived-exporter
+    build: .
+    container_name: hived-exporter
+    ports:
+      - 8088:8088
+    environment:
+      - HIVED_EXPORTER_PORT=8088
+      - HIVED_EXPORTER_LOG_LEVEL=${HIVED_EXPORTER_LOG_LEVEL}
+  hived-exporter-api:
+    image: hived-exporter
+    build: .
+    container_name: hived-exporter-api-scraper
+    ports:
+      - 8087:8087
+    environment:
+      - HIVED_EXPORTER_PORT=8087
+      - HIVED_EXPORTER_LOG_LEVEL=${HIVED_EXPORTER_LOG_LEVEL}
+      - HIVED_EXPORTER_API_NODE=${HIVED_EXPORTER_API_NODE_URL}
+      - HIVED_EXPORTER_API_SCRAPE_ONLY=true
+      - HIVED_EXPORTER_ACCOUNT=${HIVED_EXPORTER_ACCOUNTS}
+  victoria-metrics:
+    image: victoriametrics/victoria-metrics
+    container_name: victoria-metrics
+    ports:
+      - 8428:8428
+    volumes:
+      - ./configs:/config
+      - ./data/db:/data
+    command:
+      - '-promscrape.config=/config/victoria-docker.yml'
+      - '-storageDataPath=/data'
+      - '-search.latencyOffset=0'
+      - '-retentionPeriod=90d'

@@ -30,7 +30,15 @@ const config = yargs(process.argv)
     account: {
       alias: 'acc',
       type: 'array',
-      default: [DHF_ACC]
+      default: [DHF_ACC],
+      coerce: (arg: string | string[]) => {
+        if (typeof arg === 'string') {
+          arg = arg.trim().toLowerCase()
+          // Split the string by commas to form the array
+          return arg.split(',')
+        }
+        return arg
+      }
     }
   })
   .parseSync()

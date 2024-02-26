@@ -228,6 +228,8 @@ if (config.apiNode) {
             }
           }
         }
+      } else {
+        logger.debug('Hive API request failed with status code ' + resp.status, resp.statusText)
       }
     } catch {}
   }
@@ -241,6 +243,8 @@ if (config.apiNode) {
         let result: CoingeckoUSDPriceResponse = await resp.json()
         MarketInfo.labels('usd', 'price').set(result.hive.usd)
         MarketInfo.labels('usd', 'market_cap').set(result.hive.usd_market_cap)
+      } else {
+        logger.debug('Coingecko API request failed with status code ' + resp.status, resp.statusText)
       }
     } catch {}
   }
