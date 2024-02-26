@@ -25,7 +25,7 @@ services:
     image: victoriametrics/victoria-metrics
     container_name: victoria-metrics
     ports:
-      - 8428:8428
+      - ${VICTORIA_PORT:-8428}:8428
     volumes:
       - ./configs:/config
       - ./data/db:/data
