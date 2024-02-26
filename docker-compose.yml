@@ -1,4 +1,10 @@
 version: '3'
+x-logging: &default-logging
+  logging:
+    driver: 'json-file'
+    options:
+      max-size: '10m'
+      max-file: '3'
 services:
   hived-exporter:
     image: hived-exporter
@@ -9,6 +15,7 @@ services:
     environment:
       - HIVED_EXPORTER_PORT=8088
       - HIVED_EXPORTER_LOG_LEVEL=${HIVED_EXPORTER_LOG_LEVEL}
+    <<: *default-logging
   hived-exporter-api:
     image: hived-exporter
     build: .
@@ -21,6 +28,7 @@ services:
       - HIVED_EXPORTER_API_NODE=${HIVED_EXPORTER_API_NODE_URL}
       - HIVED_EXPORTER_API_SCRAPE_ONLY=true
       - HIVED_EXPORTER_ACCOUNT=${HIVED_EXPORTER_ACCOUNTS}
+    <<: *default-logging
   victoria-metrics:
     image: victoriametrics/victoria-metrics
     container_name: victoria-metrics
@@ -34,3 +42,4 @@ services:
       - '-storageDataPath=/data'
       - '-search.latencyOffset=0'
       - '-retentionPeriod=90d'
+    <<: *default-logging
