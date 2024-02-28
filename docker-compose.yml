@@ -41,5 +41,5 @@ services:
       - '-promscrape.config=/config/victoria-docker.yml'
       - '-storageDataPath=/data'
       - '-search.latencyOffset=0'
-      - '-retentionPeriod=90d'
+      - '-retentionPeriod=${VICTORIA_RETENTION_PERIOD:-90d}'
     <<: *default-logging

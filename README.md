@@ -45,6 +45,7 @@ Configure the containers by copying the included `.env.docker.example` file into
 |HIVED_EXPORTER_API_NODE_URL|`hived` API endpoint to scrape API data from||
 |HIVED_EXPORTER_ACCOUNTS|Comma-separated list of Hive accounts to export metrics||
 |VICTORIA_PORT|Listening port for VictoriaMetrics|8428|
+|VICTORIA_RETENTION_PERIOD|Metrics retention period|90d|
 
 Run the docker compose as follows:
 ```bash
