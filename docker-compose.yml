@@ -38,7 +38,7 @@ services:
       - ./configs:/config
       - ./data/db:/data
     command:
-      - '-promscrape.config=/config/victoria-docker.yml'
+      - '-promscrape.config=/config/${VICTORIA_CONFIG_FILE:-victoria-docker.yml}'
       - '-storageDataPath=/data'
       - '-search.latencyOffset=0'
       - '-retentionPeriod=${VICTORIA_RETENTION_PERIOD:-90d}'
