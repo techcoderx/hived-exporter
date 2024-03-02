@@ -1,9 +1,13 @@
 .DS_Store
 .git
+.gitignore
+.prettierignore
+.prettierrc.yml
+.vscode
 node_modules
 logs
 .env
 dist
 configs
 data
-.env
+*.md
