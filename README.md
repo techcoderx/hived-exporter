@@ -61,3 +61,7 @@ One-liner update command:
 ```bash
 docker compose down; git pull; docker compose build; docker compose up -d
 ```
+
+### ⚠️ Warning
+
+When running the exporter with [haf_api_node](https://gitlab.syncad.com/hive/haf_api_node) (especially in the same Docker Compose), the exporter process **must** be running first before starting `hived`, otherwise the `haf` container will crash and fail to start .
