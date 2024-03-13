@@ -4,7 +4,7 @@ Metrics exporter for `hived` node. Currently exports block stats and data from `
 
 ## Required Dependencies
 
-* `nodejs` and [pnpm](https://pnpm.io) (Latest LTS, v20 minimum supported)
+* `nodejs` and [pnpm](https://pnpm.io) (Latest LTS, v20 minimum supported), or Docker
 * Running [hived](https://gitlab.syncad.com/hive/hive) node
 
 ## Setup hived config
