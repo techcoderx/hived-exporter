@@ -2,6 +2,8 @@
 
 Metrics exporter for `hived` node. Currently exports block stats and data from `hived` API.
 
+![](https://files.peakd.com/file/peakd-hive/techcoderx/23swg9tkJc2SU4ED7am8nCQKXBqU8Jt8ikM2sVWz7UmjJGyTmNS2RXECWuGkM3AqHu2xw.png)
+
 ## Required Dependencies
 
 * `nodejs` and [pnpm](https://pnpm.io) (Latest LTS, v20 minimum supported), or Docker
